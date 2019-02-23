@@ -36,7 +36,7 @@ def get_headlines(text):
         "class": "justin-text-cont"
     })
     headline_tags = main_div.find_all("a", href=str_is_set)
-    return list(map(get_headline_details, headline_tags))
+    return list(map(get_headline_details, headline_tags))[:10]
 
 
 if __name__ == "__main__":
