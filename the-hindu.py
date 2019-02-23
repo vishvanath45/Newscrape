@@ -2,6 +2,7 @@
 
 import requests
 from bs4 import BeautifulSoup
+import pytz
 
 def is_string(obj):
     return isinstance(obj, str)
@@ -39,7 +40,7 @@ def get_headline_details(obj):
         return {
             "content": get_content(obj["href"]),
             "link": obj["href"],
-            "timestamp": str(datetime.utcnow()),
+            "timestamp": str(datetime.now(tz=pytz.timezone('Asia/Kolkata'))),
             "title": "\n".join(filter(
                 str_is_set,
                 map(

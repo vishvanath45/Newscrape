@@ -12,6 +12,7 @@ pylint = "*"
 pymongo = {extras = ["tls"],version = "*"}
 python-dotenv = "*"
 newspaper3k = "*"
+pytz = "*"
 
 [requires]
 python_version = "3.7"
