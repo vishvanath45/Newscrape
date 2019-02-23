@@ -1,14 +1,14 @@
 # Newscrape
 Scraping news sources
 
-## Source of news feed - 
+## Source of news feed
 
 ### Google News
-### The Hindu 
+### The Hindu
 ### Hindustan Times
-### Deccan Chronicle 
+### Deccan Chronicle
 
-## Using Tools 
+## Using Tools
 
 ### Scraping(Beautiful Soup)
 ### News APIs
@@ -16,4 +16,4 @@ Scraping news sources
 
 Initial plan is to look into various feasible ways to extract the headlines from news websites.
 
--- @vishvanath45 & @Compro-Prasad 
+-- @vishvanath45 & @Compro-Prasad
