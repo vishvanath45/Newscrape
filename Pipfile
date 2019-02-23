@@ -9,6 +9,9 @@ verify_ssl = true
 requests = "*"
 bs4 = "*"
 pylint = "*"
+pymongo = {extras = ["tls"],version = "*"}
+python-dotenv = "*"
+newspaper3k = "*"
 
 [requires]
 python_version = "3.7"

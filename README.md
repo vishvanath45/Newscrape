@@ -31,4 +31,37 @@ Scraping news sources
 
 Initial plan is to look into various feasible ways to extract the headlines from news websites.
 
+# Contributing
+
+## Install requirements using `pipenv`
+```
+pipenv install
+```
+
+## Activate virtualenv
+```
+pipenv shell
+```
+
+## Setup mongodb credentials
+```
+cp .env.example .env
+EDITOR=nano .env
+```
+
+## Start the main script
+```
+./update-db.py
+```
+
+## How to add a new source?
+
+Make sure the name of the python source file is in lowercase and doesn't contain punctuation characters. If the news source name is **News Source** then the corresponding filename should be `news-source.py` and should be kept in project root.
+
+### Using `BeautifulSoup`
+Reusing `the-hindu.py` is the best option to start writing a new parser for a news source.
+
+### Mandatory functions
+You will have to keep a `get_headlines(url)` function in the python module else running `update-db.py` will throw error. For consistency you can keep `get_headline_details` and `get_content` also which are used to find headline details and news content respectively.
+
 -- @vishvanath45 & @Compro-Prasad
