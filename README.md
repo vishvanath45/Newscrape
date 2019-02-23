@@ -7,6 +7,21 @@ Scraping news sources
 ### The Hindu
 ### Hindustan Times
 ### Deccan Chronicle
+### Telegraph
+### Times of India
+### News18
+### TimesNow
+### NDTV 
+### CNN-IBM
+### Yahoo News
+### AajTak
+### Mid Day
+### Rediff 
+### National Herald
+### News Today
+### DD News
+### Indian Express
+
 
 ## Using Tools
 
