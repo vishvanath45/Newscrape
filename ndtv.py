@@ -2,7 +2,6 @@
 
 import requests
 from bs4 import BeautifulSoup
-import pytz
 
 def is_string(obj):
     return isinstance(obj, str)
@@ -26,7 +25,7 @@ def get_headline_details(obj):
         return {
             "content": get_content(obj["href"]),
             "link": obj["href"],
-            "timestamp": str(datetime.now(tz=pytz.timezone('Asia/Kolkata'))),
+            "timestamp": str(datetime.utcnow()),
             "title": obj["title"]
         }
     except KeyError:
