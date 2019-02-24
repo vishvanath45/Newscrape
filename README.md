@@ -33,9 +33,13 @@ Initial plan is to look into various feasible ways to extract the headlines from
 
 ## Contributing
 
-### Install requirements using `pipenv`
+### Install requirements
 ```
 pipenv install
+# OR
+pipenv --three # Creates virtualenv
+pipenv shell   # Activate virtualenv
+pip install -r requirements.txt
 ```
 
 ### Activate virtualenv
