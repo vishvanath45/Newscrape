@@ -46,12 +46,14 @@ pipenv shell
 ## Setup mongodb credentials
 ```
 cp .env.example .env
-EDITOR=nano .env
+EDITOR=nano $EDITOR .env
 ```
 
 ## Start the main script
 ```
 ./update-db.py
+# OR
+python3 update-db.py
 ```
 
 ## How to add a new source?
@@ -64,4 +66,7 @@ Reusing `the-hindu.py` is the best option to start writing a new parser for a ne
 ### Mandatory functions
 You will have to keep a `get_headlines(url)` function in the python module else running `update-db.py` will throw error. For consistency you can keep `get_headline_details` and `get_content` also which are used to find headline details and news content respectively.
 
--- @vishvanath45 & @Compro-Prasad
+# Authors
+- [Debasis Mitra](https://www.nitdgp.ac.in/faculty/c8a7fd24-de21-4537-8e67-acab7d45b9d2)
+- [vishvanath45](https://github.com/vishvanath45)
+- [Compro-Prasad](https://github.com/Compro-Prasad)
