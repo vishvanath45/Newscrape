@@ -3,70 +3,70 @@ Scraping news sources
 
 ## Source of news feed
 
-### Google News
-### The Hindu
-### Hindustan Times
-### Deccan Chronicle
-### Telegraph
-### Times of India
-### News18
-### TimesNow
-### NDTV 
-### CNN-IBM
-### Yahoo News
-### AajTak
-### Mid Day
-### Rediff 
-### National Herald
-### News Today
-### DD News
-### Indian Express
+- Google News
+- The Hindu
+- Hindustan Times
+- Deccan Chronicle
+- Telegraph
+- Times of India
+- News18
+- TimesNow
+- NDTV 
+- CNN-IBM
+- Yahoo News
+- AajTak
+- Mid Day
+- Rediff 
+- National Herald
+- News Today
+- DD News
+- Indian Express
 
 
 ## Using Tools
 
-### Scraping(Beautiful Soup)
-### News APIs
-### Selenium
+- Scraping(Beautiful Soup)
+- News APIs
+- Selenium
 
 Initial plan is to look into various feasible ways to extract the headlines from news websites.
 
-# Contributing
+## Contributing
 
-## Install requirements using `pipenv`
+### Install requirements using `pipenv`
 ```
 pipenv install
 ```
 
-## Activate virtualenv
+### Activate virtualenv
 ```
 pipenv shell
 ```
 
-## Setup mongodb credentials
+### Setup mongodb credentials
 ```
 cp .env.example .env
 EDITOR=nano $EDITOR .env
 ```
 
-## Start the main script
+### Start the main script
 ```
 ./update-db.py
 # OR
 python3 update-db.py
 ```
 
-## How to add a new source?
+### How to add a new source?
 
 Make sure the name of the python source file is in lowercase and doesn't contain punctuation characters. If the news source name is **News Source** then the corresponding filename should be `news-source.py` and should be kept in project root.
 
-### Using `BeautifulSoup`
+#### Using `BeautifulSoup`
 Reusing `the-hindu.py` is the best option to start writing a new parser for a news source.
 
 ### Mandatory functions
 You will have to keep a `get_headlines(url)` function in the python module else running `update-db.py` will throw error. For consistency you can keep `get_headline_details` and `get_content` also which are used to find headline details and news content respectively.
 
-# Authors
+## Authors
 - [Debasis Mitra](https://www.nitdgp.ac.in/faculty/c8a7fd24-de21-4537-8e67-acab7d45b9d2)
 - [vishvanath45](https://github.com/vishvanath45)
 - [Compro-Prasad](https://github.com/Compro-Prasad)
