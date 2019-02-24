@@ -17,14 +17,10 @@ KNOWN_NEWS_SOURCES = [
 
 
 def update_database(collection, headlines):
-    from pymongo import ReplaceOne
+    from pymongo import InsertOne
     operations = []
     for headline in headlines:
-        operations.append(ReplaceOne(
-            filter={ "link": headline["link"] },
-            replacement=headline,
-            upsert=True
-        ))
+        operations.append(InsertOne(headline))
     new_connection(collection).bulk_write(operations)
     print("OK")
 
