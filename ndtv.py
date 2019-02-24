@@ -39,10 +39,10 @@ def get_headlines(url):
         soup = BeautifulSoup(response.text, 'html.parser')
         headline_tags = list(map( lambda x : x.find("a"), soup.find_all("div", {
             "class": "new_storylising_img"
-        })))
+        })))[:10]
 
         # It returns 15 results, we are taking just 10 results.
-        return list(map(get_headline_details, headline_tags))[:10]
+        return list(map(get_headline_details, headline_tags))
     return None
 
 

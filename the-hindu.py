@@ -60,8 +60,8 @@ def get_headlines(url):
         main_div = soup.find("div", {
             "class": "justin-text-cont"
         })
-        headline_tags = main_div.find_all("a", href=str_is_set)
-        return list(map(get_headline_details, headline_tags))[:10]
+        headline_tags = main_div.find_all("a", href=str_is_set)[:10]
+        return list(map(get_headline_details, headline_tags))
     return None
 
 
