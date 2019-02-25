@@ -7,7 +7,7 @@ from importlib import import_module
 KNOWN_NEWS_SOURCES = [
     {
         "channel": "The Hindu",
-        "link": "https://www.thehindu.com/",
+        "link": "https://www.thehindu.com/news/national/",
     },
     {
         "channel": "NDTV",
