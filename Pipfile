@@ -11,7 +11,6 @@ bs4 = "*"
 pylint = "*"
 pymongo = {extras = ["tls"],version = "*"}
 python-dotenv = "*"
-newspaper3k = "*"
 pytz = "*"
 
 [requires]
