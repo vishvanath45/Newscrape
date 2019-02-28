@@ -33,7 +33,7 @@ def get_headline_details(obj):
         pdb.set_trace()
 
 
-def get_headlines(url):
+def get_chronological_headlines(url):
     response = requests.get(url)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -46,6 +46,10 @@ def get_headlines(url):
     return None
 
 
+def get_trending_headlines(url):
+    pass
+
+
 if __name__ == "__main__":
     import json
 
@@ -53,7 +57,7 @@ if __name__ == "__main__":
     NEWS_WEBSITE = "https://www.ndtv.com/india"
 
     print(json.dumps(
-        get_headlines(NEWS_WEBSITE),
+        get_chronological_headlines(NEWS_WEBSITE),
         sort_keys=True,
         indent=4
     ))

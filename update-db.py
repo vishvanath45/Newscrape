@@ -29,5 +29,5 @@ if __name__ == "__main__":
     for src in KNOWN_NEWS_SOURCES:
         src["module"] = "scraper." + src["channel"].lower().replace(" ", "-")
         mod = import_module(src["module"])
-        headlines = mod.get_headlines(src["link"])
+        headlines = mod.get_chronological_headlines(src["link"])
         update_database(src["channel"], headlines)

@@ -53,7 +53,7 @@ def get_headline_details(obj):
         pdb.set_trace()
 
 
-def get_headlines(url):
+def get_chronological_headlines(url):
     response = requests.get(url)
     if (response.status_code == 200):
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -63,6 +63,10 @@ def get_headlines(url):
         headline_tags = main_div.find_all("a", href=str_is_set)[:10]
         return list(map(get_headline_details, headline_tags))
     return None
+
+
+def get_trending_headlines(url):
+    pass
 
 
 if __name__ == "__main__":
