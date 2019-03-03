@@ -1,50 +1,55 @@
-#!/usr/bin/env python3
+"""
+This module scrapes content from The Hindu News.
+
+It provides:
+- get_chronological_headlines(url)
+- get_trending_headlines(url)
+"""
 
 import requests
+import re
 from bs4 import BeautifulSoup
-
-def is_string(obj):
-    return isinstance(obj, str)
-
-
-def strip_string(s):
-    return s.strip()
-
-
-def str_is_set(attr):
-    return attr and attr != ""
+from sys import path
+import os
+path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+from sources import KNOWN_NEWS_SOURCES
+from newscrape_common import   \
+    str_is_set, is_string, remove_duplicate_entries
 
 
-def get_content(url):
-    import re
-    response = requests.get(url)
-    if response.status_code == 200:
-        html_content = BeautifulSoup(response.text, 'html.parser')
-        text = html_content.find("div", {
-            "class": "article"
-        }).find("div", id=re.compile('content-body*')).get_text()
-        return text
-    return "NA"
+def get_all_content(objects):
+    """
+    Call this function with a list of objects. Make sure there are no duplicate
+    copies of an object else downloading might take long time.
+    """
+    def get_content(url):
+        from time import sleep
+        sleep(1)
+        response = requests.get(url)
+        if response.status_code == 200:
+            html_content = BeautifulSoup(response.text, "html.parser")
+            text = html_content.find("div", {
+                "class": "article"
+            }).find("div", id=re.compile("content-body*")).get_text()
+            return text
+        return "NA"
+
+    for obj in objects:
+        obj["content"] = get_content(obj["link"])
 
 
-i = 0
 def get_headline_details(obj):
     try:
         from datetime import datetime
-        from time import sleep
-        sleep(1)
-        global i
-        print("Downloading " + str(i) + " article")
-        i += 1
         return {
-            "content": get_content(obj["href"]),
+            "content": "NA",
             "link": obj["href"],
             "timestamp": str(datetime.utcnow()),
             "title": "\n".join(filter(
                 str_is_set,
                 map(
-                    strip_string,
-                    filter(is_string, obj.contents)
+                    str.strip,
+                    filter(is_string, obj.children)
                 )
             ))
         }
@@ -55,28 +60,50 @@ def get_headline_details(obj):
 
 def get_chronological_headlines(url):
     response = requests.get(url)
-    if (response.status_code == 200):
-        soup = BeautifulSoup(response.text, 'html.parser')
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, "html.parser")
         main_div = soup.find("div", {
             "class": "justin-text-cont"
         })
-        headline_tags = main_div.find_all("a", href=str_is_set)[:10]
-        return list(map(get_headline_details, headline_tags))
+        a_tags = main_div.find_all("a", href=str_is_set)
+        headlines = list(map(get_headline_details, a_tags))
+        get_all_content(headlines)  # Fetch contents separately
+        return headlines
     return None
 
 
+def find_a_tag_in_trending(tag):
+    if tag.name == "a" and tag.get("title"):
+        if re.compile("^Updated: .+Published: .+$").match(tag.get("title")):
+            return True
+    return False
+
+
 def get_trending_headlines(url):
-    pass
+    response = requests.get(url)
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, "html.parser")
+        soup.find("div", { "class": "100_3x_JustIn" }).decompose()
+        a_tags = soup.find("div", { "class": "main" }).find_all(find_a_tag_in_trending)
+        headlines = list(map(get_headline_details, a_tags))
+        get_all_content(headlines)
+        return headlines
+    return None
 
 
 if __name__ == "__main__":
     import json
 
-    # Don't change this unknowingly
-    NEWS_WEBSITE = "https://www.thehindu.com/"
+    SRC = KNOWN_NEWS_SOURCES["The Hindu"]
 
     print(json.dumps(
-        get_headlines(NEWS_WEBSITE),
+        get_chronological_headlines(SRC["pages"].format(1)),
+        sort_keys=True,
+        indent=4
+    ))
+
+    print(json.dumps(
+        get_trending_headlines(SRC["home"]),
         sort_keys=True,
         indent=4
     ))

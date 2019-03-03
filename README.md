@@ -55,8 +55,6 @@ EDITOR=nano $EDITOR .env
 
 ### Start the main script
 ```
-./update-db.py
-# OR
 python3 update-db.py
 ```
 
@@ -66,6 +64,8 @@ Make sure the name of the python source file is in lowercase and doesn't contain
 
 #### Using `BeautifulSoup`
 Reusing `the-hindu.py` is the best option to start writing a new parser for a news source.
+
+Also add details of the source in `sources.py`.
 
 ### Mandatory functions
 You will have to keep a `get_headlines(url)` function in the python module else running `update-db.py` will throw error. For consistency you can keep `get_headline_details` and `get_content` also which are used to find headline details and news content respectively.
