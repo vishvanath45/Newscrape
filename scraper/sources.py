@@ -14,5 +14,11 @@ KNOWN_NEWS_SOURCES = {
         "india": "https://www.ndtv.com/india",
         "page1": "",
         "pages": "https://www.ndtv.com/india/page-{}"
-    }
+    },
+    "Times of India": {
+        "home": "https://timesofindia.indiatimes.com/",
+        "india": "https://timesofindia.indiatimes.com/india/",
+        "page1": "https://timesofindia.indiatimes.com/india/",
+        "pages": "https://timesofindia.indiatimes.com/india/{}"
+    },
 }
