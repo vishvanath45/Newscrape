@@ -8,7 +8,7 @@ It provides:
 - get_trending_headlines(url)
 """
 
-import datetime
+from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
 from sys import path
@@ -20,30 +20,31 @@ from sources import KNOWN_NEWS_SOURCES
 
 
 def get_chronological_headlines(url):
-	response = requests.get(url)
-	if response.status_code == 200:
-	    soup = BeautifulSoup(response.text, "html.parser")
-	    soup.find("div",id="c_articlelist_widgets_1").decompose()
+    response = requests.get(url)
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, "html.parser")
+        soup.find("div",id="c_articlelist_widgets_1").decompose()
 
-	    data = []
-	    objs = soup.find("div",{"class":"main-content"}).find_all("span", {"class":"w_tle"})
+        data = []
+        objs = soup.find("div",{"class":"main-content"}).find_all("span", {"class":"w_tle"})
 
-	    for obj in objs:
-	    	dt = obj.find_next("span").find("span").get("rodate")
-	    	clean_dt = datetime.strptime(dt,"%d %b %Y, %H:%M")
+        for obj in objs:
+            dt = obj.find_next("span").find("span").get("rodate")
+            if dt is not None:
+                clean_dt = datetime.strptime(dt,"%d %b %Y, %H:%M")
 
-	    	data.append({
-	    		"link": "https://timesofindia.indiatimes.com"+obj.find("a").get("href"),
-	    		"content": "NA",
-	    		"timestamp": clean_dt,
-	    		"title": obj.find("a").get("title")
-	    	})
+            data.append({
+                "link": "https://timesofindia.indiatimes.com"+obj.find("a").get("href"),
+                "content": "NA",
+                "timestamp": clean_dt,
+                "title": obj.find("a").get("title")
+            })
 
-	    return data
+        return data
 
 def get_trending_headlines(url):
-	pass
-	#TODO
+    pass
+    #TODO
 
 if __name__ == "__main__":
     import json
