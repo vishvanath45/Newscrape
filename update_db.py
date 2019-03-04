@@ -6,10 +6,14 @@ from scraper.sources import KNOWN_NEWS_SOURCES
 
 
 def update_database(collection, headlines):
-    from pymongo import InsertOne
+    from pymongo import ReplaceOne
     operations = []
     for headline in headlines:
-        operations.append(InsertOne(headline))
+        operations.append(ReplaceOne({
+            filter={ "link": headline["link"] },
+            replacement=headline,
+            upsert=True
+        }))
     new_connection(collection).bulk_write(operations)
     print("OK")
 
@@ -19,5 +23,5 @@ if __name__ == "__main__":
         src = KNOWN_NEWS_SOURCES[key]
         src["module"] = "scraper." + key.lower().replace(" ", "-")
         mod = import_module(src["module"])
-        headlines = mod.get_chronological_headlines(src["pages"].format(1))
+        headlines = mod.get_chronological_headlines(src["pages"].format(2))
         update_database(key, headlines)

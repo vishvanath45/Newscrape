@@ -8,8 +8,8 @@ It provides:
 - get_trending_headlines(url)
 """
 
+import datetime
 import requests
-import re
 from bs4 import BeautifulSoup
 from sys import path
 import os
