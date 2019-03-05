@@ -44,5 +44,5 @@ if __name__ == "__main__":
             if to_go_on_next_page_or_not(key, headlines):
                 update_database(key, headlines)
             else:
-                print("\nScraping finished till", i - 1)
                 break
+        print("\nScraping finished till", i - 1)
