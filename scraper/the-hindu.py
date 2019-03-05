@@ -62,10 +62,15 @@ def get_chronological_headlines(url):
     response = requests.get(url)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, "html.parser")
-        main_div = soup.find("div", {
-            "class": "justin-text-cont"
-        })
-        a_tags = main_div.find_all("a", href=str_is_set)
+        for tag in soup.find_all("div", { "class": "search-scrollar" }):
+            tag.decompose()
+        main_div = soup.find("section", id="section_2").find(
+            "div", { "class": "main" }
+        )
+        a_tags = list(map(
+            lambda x: x.find("a", href=str_is_set),
+            main_div.find_all("h3")
+        ))
         headlines = list(map(get_headline_details, a_tags))
         get_all_content(headlines)  # Fetch contents separately
         return headlines
