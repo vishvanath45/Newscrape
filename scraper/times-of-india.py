@@ -9,14 +9,13 @@ It provides:
 """
 
 from datetime import datetime
-import requests
-from bs4 import BeautifulSoup
 from sys import path
 import os
+import requests
+from bs4 import BeautifulSoup
 path.insert(0, os.path.dirname(os.path.realpath(__file__)))
 from sources import KNOWN_NEWS_SOURCES
-# from newscrape_common import   \
-#     str_is_set, is_string, remove_duplicate_entries
+from newscrape_common import ist_to_utc
 
 
 def get_chronological_headlines(url):
@@ -31,7 +30,7 @@ def get_chronological_headlines(url):
         for obj in objs:
             dt = obj.find_next("span").find("span").get("rodate")
             if dt is not None:
-                clean_dt = datetime.strptime(dt,"%d %b %Y, %H:%M")
+                clean_dt = ist_to_utc(datetime.strptime(dt,"%d %b %Y, %H:%M")).isoformat()
 
             data.append({
                 "link": "https://timesofindia.indiatimes.com"+obj.find("a").get("href"),

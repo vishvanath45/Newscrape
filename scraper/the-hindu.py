@@ -8,13 +8,14 @@ It provides:
 
 import requests
 import re
+from datetime import datetime
 from bs4 import BeautifulSoup
 from sys import path
 import os
 path.insert(0, os.path.dirname(os.path.realpath(__file__)))
 from sources import KNOWN_NEWS_SOURCES
 from newscrape_common import   \
-    str_is_set, is_string, remove_duplicate_entries
+    str_is_set, is_string, remove_duplicate_entries, ist_to_utc
 
 
 def get_all_content(objects):
@@ -40,11 +41,14 @@ def get_all_content(objects):
 
 def get_headline_details(obj):
     try:
-        from datetime import datetime
+        timestamp = datetime.strptime(
+            obj["title"].split("Published: ")[1].split(" IST")[0],
+            "%B %d, %Y %H:%M"
+        )
         return {
             "content": "NA",
             "link": obj["href"],
-            "timestamp": str(datetime.utcnow()),
+            "timestamp": ist_to_utc(timestamp).isoformat(),
             "title": "\n".join(filter(
                 str_is_set,
                 map(

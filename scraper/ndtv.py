@@ -13,7 +13,7 @@ import os
 path.insert(0, os.path.dirname(os.path.realpath(__file__)))
 from sources import KNOWN_NEWS_SOURCES
 from newscrape_common import   \
-    str_is_set, is_string, remove_duplicate_entries
+    str_is_set, is_string, remove_duplicate_entries, ist_to_utc
 
 
 def get_all_content(objects):
@@ -34,7 +34,7 @@ def get_headline_details(obj):
         return {
             "content": "NA",
             "link": obj["href"].split("?")[0],
-            "timestamp": str(datetime.utcnow()),
+            "timestamp": ist_to_utc(datetime.utcnow()).isoformat(),
             "title": "\n".join(filter(
                 str_is_set,
                 map(
