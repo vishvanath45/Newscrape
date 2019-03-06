@@ -14,9 +14,6 @@ def update_database(collection, headlines):
         db_object = {
             "link": headline["link"],
             "start_time": headline["scraped_at"],
-            "published_time": headline["published_at"],
-            "content": headline["content"],
-            "title": headline["title"]
         }
         if conn.count_documents({"link": headline["link"]}) > 0:
             operations.append(UpdateOne(
