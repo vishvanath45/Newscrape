@@ -6,12 +6,20 @@ from scraper.sources import KNOWN_NEWS_SOURCES
 
 
 def update_database(collection, headlines):
+    if headlines is None:
+        return
     from pymongo import ReplaceOne
     operations = []
     for headline in headlines:
+        db_object = {
+            "link": headline["link"],
+            "published_time": headline["published_at"],
+            "content": headline["content"],
+            "title": headline["title"]
+        }
         operations.append(ReplaceOne(
             filter={ "link": headline["link"] },
-            replacement=headline,
+            replacement=db_object,
             upsert=True
         ))
     new_connection(collection).bulk_write(operations)
@@ -32,10 +40,9 @@ if __name__ == "__main__":
         src["module"] = import_module(src["module"])
     for key in KNOWN_NEWS_SOURCES:
         src = KNOWN_NEWS_SOURCES[key]
-        print(key, src)
         mod = src["module"]
         for i in range(1, 5):
-            print(i, end=", ")
+            print(end=".")
             import sys
             sys.stdout.flush()
             if i == 1 and src["page1"] != "":
@@ -46,4 +53,4 @@ if __name__ == "__main__":
                 update_database(key, headlines)
             else:
                 break
-        print("\nScraping finished till", i - 1)
+        print(" " + key + ": Scraping finished till", i - 1)

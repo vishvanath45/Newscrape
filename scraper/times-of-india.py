@@ -35,7 +35,8 @@ def get_chronological_headlines(url):
             data.append({
                 "link": "https://timesofindia.indiatimes.com"+obj.find("a").get("href"),
                 "content": "NA",
-                "timestamp": clean_dt,
+                "scraped_at": ist_to_utc(datetime.now()).isoformat(),
+                "published_at": clean_dt,
                 "title": obj.find("a").get("title")
             })
 

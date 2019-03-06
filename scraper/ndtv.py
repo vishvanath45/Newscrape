@@ -34,7 +34,8 @@ def get_headline_details(obj):
         return {
             "content": "NA",
             "link": obj["href"].split("?")[0],
-            "timestamp": ist_to_utc(datetime.utcnow()).isoformat(),
+            "scraped_at": ist_to_utc(datetime.utcnow()).isoformat(),
+            "published_at": ist_to_utc(datetime.utcnow()).isoformat(),  # TODO
             "title": "\n".join(filter(
                 str_is_set,
                 map(
