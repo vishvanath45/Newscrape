@@ -31,11 +31,31 @@ def get_all_content(objects):
 def get_headline_details(obj):
     try:
         from datetime import datetime
+        timestamp_tag = obj.parent.parent.find(
+            "div", {"class": "nstory_dateline"}
+        )
+        if timestamp_tag is None:
+            timestamp = datetime.now()
+        else:
+            content = timestamp_tag.contents[-1].strip()
+            date = content.split("| ")[-1].split(", ")
+            if date[-1].isdigit():
+                date = " ".join(date)
+            else:
+                for i in range(1, 10):
+                    if date[-i].isdigit():
+                        break
+                i -= 1
+                date = " ".join(date[:-i])
+            timestamp = datetime.strptime(
+                date + " 05:30",
+                "%A %B %d %Y %H:%M"
+            )
         return {
             "content": "NA",
             "link": obj["href"].split("?")[0],
-            "scraped_at": ist_to_utc(datetime.utcnow()).isoformat(),
-            "published_at": ist_to_utc(datetime.utcnow()).isoformat(),  # TODO
+            "scraped_at": datetime.utcnow().isoformat(),
+            "published_at": ist_to_utc(timestamp).isoformat(),
             "title": "\n".join(filter(
                 str_is_set,
                 map(
