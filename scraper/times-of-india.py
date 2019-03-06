@@ -43,8 +43,30 @@ def get_chronological_headlines(url):
         return data
 
 def get_trending_headlines(url):
-    pass
-    #TODO
+    response = requests.get(url)
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.text, "html.parser")
+        x = soup.find("div",{"class":"top-story"})
+        y = list(map(
+            lambda x: {
+                "scraped_at":datetime.utcnow().isoformat(),
+                "link":x.get('href')
+            },
+            filter(
+                lambda i : i.get('title') is not None,
+                x.find_all('a')
+            )
+        ))
+        # for featured story in left
+        x = soup.find("div", id = "featuredstory").find("a")
+        y.append(
+            {
+                "scraped_at":datetime.utcnow().isoformat(),
+                "link":x.get('href')
+            }
+        )
+        return y
+
 
 if __name__ == "__main__":
     import json
