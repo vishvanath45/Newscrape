@@ -35,10 +35,11 @@ def ist_to_utc(timestamp):
     return to_utc(timestamp)
 
 
-def remove_duplicate_entries(objects, key):
+def remove_duplicate_entries(objects, key, prefer=None):
     """
     Return a new list of objects after removing all duplicate objects based on
-    key.
+    key. If prefer argument is provided, among duplicate objects, the one whose
+    obj[prefer] giving False value is discarded
     """
     unique_set = set()
     def is_unique(obj):
@@ -47,4 +48,18 @@ def remove_duplicate_entries(objects, key):
             unique_set.add(obj[key])
             return True
         return False
-    return list(filter(is_unique, objects))
+
+    if prefer is None:
+        return list(filter(is_unique, objects))
+    
+    preferred = {}
+    for obj in objects:
+        # obj[key] assumed always hashable
+        prkey = obj[key]
+        if preferred.get(prkey) is None:
+            preferred[prkey] = obj
+            continue
+        if not preferred[prkey][prefer]:
+            preferred[prkey] = obj
+
+    return list(preferred.values())

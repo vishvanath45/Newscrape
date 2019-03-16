@@ -21,4 +21,10 @@ KNOWN_NEWS_SOURCES = {
         "page1": "https://timesofindia.indiatimes.com/india/",
         "pages": "https://timesofindia.indiatimes.com/india/{}"
     },
+    "Hindustan Times": {
+        "home": "https://www.hindustantimes.com/",
+        "india": "https://www.hindustantimes.com/india-news/",
+        "page1": "",
+        "pages": "https://www.hindustantimes.com/latest-news/?pageno={}"
+    },
 }
