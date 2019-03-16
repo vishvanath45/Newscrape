@@ -1,7 +1,7 @@
 # Newscrape
 Scraping news sources
 
-## Source of news feed
+## Primary Source of news feed
 
 - Google News
 - The Hindu
@@ -21,6 +21,7 @@ Scraping news sources
 - News Today
 - DD News
 - Indian Express
+- PTI
 
 
 ## Using Tools
