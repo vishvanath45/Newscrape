@@ -27,4 +27,10 @@ KNOWN_NEWS_SOURCES = {
         "page1": "",
         "pages": "https://www.hindustantimes.com/latest-news/?pageno={}"
     },
+    "Deccan Chronicle": {
+        "home": "https://www.deccanchronicle.com/",
+        "india": "https://www.deccanchronicle.com/nation",
+        "page1": "",
+        "pages": "https://www.deccanchronicle.com/most-popular?pg={}"
+    },
 }
