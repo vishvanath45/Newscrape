@@ -91,7 +91,7 @@ def get_trending_headlines(url):
         soup = BeautifulSoup(response.text, "html.parser")
         soup.find("div", { "class": "opinion_opt" }).decompose()
         # Some anchor tags in div[class="lhs_col_two"] are not parsed by the following
-        a_tags = soup.find("div", id="midcontent").find_all(
+        a_tags = soup.find("div", { "class": "hmpage_lhs" }).find_all(
             "a", { "class": "item-title" }
         )
         headlines = remove_duplicate_entries(
