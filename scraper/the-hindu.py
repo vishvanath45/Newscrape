@@ -102,7 +102,6 @@ def get_trending_headlines(url):
         soup.find("div", { "class": "100_3x_JustIn" }).decompose()
         a_tags = soup.find("div", { "class": "main" }).find_all(find_a_tag_in_trending)
         headlines = list(map(get_headline_details, a_tags))
-        get_all_content(headlines)
         return headlines
     return None
 

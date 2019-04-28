@@ -6,14 +6,17 @@ It provides:
 - get_trending_headlines(url)
 """
 
+import os
+from sys import path
+
 import requests
 from bs4 import BeautifulSoup
-from sys import path
-import os
-path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+
+from newscrape_common import (is_string, ist_to_utc, remove_duplicate_entries,
+                              str_is_set)
 from sources import KNOWN_NEWS_SOURCES
-from newscrape_common import   \
-    str_is_set, is_string, remove_duplicate_entries, ist_to_utc
+
+path.insert(0, os.path.dirname(os.path.realpath(__file__)))
 
 
 def get_all_content(objects):
@@ -93,7 +96,6 @@ def get_trending_headlines(url):
             "link",
             "title"
         )
-        get_all_content(headlines)
         return headlines
     return None
 
