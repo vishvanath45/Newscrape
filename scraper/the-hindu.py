@@ -6,16 +6,19 @@ It provides:
 - get_trending_headlines(url)
 """
 
-import requests
+import os
 import re
 from datetime import datetime
-from bs4 import BeautifulSoup
 from sys import path
-import os
-path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+
+import requests
+from bs4 import BeautifulSoup
+
+from newscrape_common import (is_string, ist_to_utc, remove_duplicate_entries,
+                              str_is_set)
 from sources import KNOWN_NEWS_SOURCES
-from newscrape_common import   \
-    str_is_set, is_string, remove_duplicate_entries, ist_to_utc
+
+path.insert(0, os.path.dirname(os.path.realpath(__file__)))
 
 
 def get_all_content(objects):
@@ -29,9 +32,12 @@ def get_all_content(objects):
         response = requests.get(url)
         if response.status_code == 200:
             html_content = BeautifulSoup(response.text, "html.parser")
-            text = html_content.find("div", {
-                "class": "article"
-            }).find("div", id=re.compile("content-body*")).get_text()
+            try:
+                text = html_content.find("div", id=re.compile("content-body-*")).get_text()
+            except AttributeError:
+                text = html_content.find("div", {
+                    "class": "lead-video-cont"
+                }).find("iframe").get("src")
             return text
         return "NA"
 
