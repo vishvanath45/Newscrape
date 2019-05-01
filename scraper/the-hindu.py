@@ -14,11 +14,11 @@ from sys import path
 import requests
 from bs4 import BeautifulSoup
 
+path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+
 from newscrape_common import (is_string, ist_to_utc, remove_duplicate_entries,
                               str_is_set)
 from sources import KNOWN_NEWS_SOURCES
-
-path.insert(0, os.path.dirname(os.path.realpath(__file__)))
 
 
 def get_all_content(objects):
