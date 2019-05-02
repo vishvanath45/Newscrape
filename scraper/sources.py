@@ -33,4 +33,10 @@ KNOWN_NEWS_SOURCES = {
         "page1": "",
         "pages": "https://www.deccanchronicle.com/most-popular?pg={}"
     },
+    "DD News": {
+        "home": "http://ddnews.gov.in/",
+        "india": "http://ddnews.gov.in/national",
+        "page1": "http://ddnews.gov.in/about/news-archive?news_type=6",
+        "pages": "http://ddnews.gov.in/about/news-archive?news_type=6&page={}"
+    },
 }
