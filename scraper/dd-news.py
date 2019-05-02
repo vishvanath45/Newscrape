@@ -113,7 +113,6 @@ def get_trending_headlines(url):
                         ).find_all('li')
                     )
         headlines = list(map(get_trending_headline_details, li_tags))
-        get_all_content(headlines)
         return headlines
     return None
 
