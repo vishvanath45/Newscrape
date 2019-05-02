@@ -33,6 +33,9 @@ if __name__ == "__main__":
         src = KNOWN_NEWS_SOURCES[key]
         src["module"] = "scraper." + key.lower().replace(" ", "-")
         mod = import_module(src["module"])
-        headlines = mod.get_trending_headlines(src["home"])
-        update_database(key, headlines)
-        print(key, "Done")
+        try:
+            headlines = mod.get_trending_headlines(src["home"])
+            update_database(key, headlines)
+            print("Done", key)
+        except:
+            print("ERROR in", key)

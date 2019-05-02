@@ -45,12 +45,16 @@ if __name__ == "__main__":
             print(end=".")
             import sys
             sys.stdout.flush()
-            if i == 1 and src["page1"] != "":
-                headlines = mod.get_chronological_headlines(src["page1"])
-            else:
-                headlines = mod.get_chronological_headlines(src["pages"].format(i))
-            if to_go_on_next_page_or_not(key, headlines):
-                update_database(key, headlines)
-            else:
+            try:
+                if i == 1 and src["page1"] != "":
+                    headlines = mod.get_chronological_headlines(src["page1"])
+                else:
+                    headlines = mod.get_chronological_headlines(src["pages"].format(i))
+                if to_go_on_next_page_or_not(key, headlines):
+                    update_database(key, headlines)
+                else:
+                    break
+                print(" " + key + ": Scraping finished till", i - 1)
+            except Exception as e:
+                print("ERROR in", key)
                 break
-        print(" " + key + ": Scraping finished till", i - 1)
