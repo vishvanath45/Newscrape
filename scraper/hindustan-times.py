@@ -25,6 +25,20 @@ def get_all_content(objects):
     copies of an object else downloading might take long time.
     """
     def get_content(url):
+        response = requests.get(url)
+        if response.status_code == 200:
+            html_content = BeautifulSoup(response.text, "html.parser")            
+            contents = html_content.find(
+                        'div', {'class': 'story-details'}
+                        )
+            if not contents:
+                return "NA"
+            contents = contents.find_all('p')
+            text = ''
+            for cont in contents[:-1]:
+                if cont.string:
+                    text += cont.string + '\n'
+            return text
         return "NA"
 
     for obj in objects:
