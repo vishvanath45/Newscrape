@@ -45,4 +45,10 @@ KNOWN_NEWS_SOURCES = {
         "page1": "",
         "pages": "https://www.news18.com/india/page-{}/"
     },
+    "Telegraph": {
+        "home": "https://www.telegraphindia.com/",
+        "india": "https://www.telegraphindia.com/india",
+        "page1": "",
+        "pages": "https://www.telegraphindia.com/india/sorter/113/from/{}/size/20",
+    },
 }
